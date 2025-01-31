@@ -1,0 +1,77 @@
+/* Estilo global */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Encabezado */
+  header {
+    margin-bottom: 30px;
+  }
+  
+  header img {
+    max-width: 150px;
+  }
+  
+  h1 {
+    color: #2c3e50;
+  }
+  
+  /* Estilo del formulario */
+  form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  form .form-label {
+    font-weight: 500;
+  }
+  
+  .form-control {
+    border-radius: 8px;
+  }
+  
+  /* Botón Enviar */
+  button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Mensaje de Confirmación */
+  .alert {
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  #successMessage.show {
+    display: block;
+    opacity: 1;
+  }
+
+  #successMessage {
+    display: none;
+    padding: 15px;
+    background-color: #4CAF50; /* Color verde para el mensaje */
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 20px;
+    transition: opacity 0.5s ease;
+  }

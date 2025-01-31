@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Tickets</title>
+
+    <!-- Estilos y fuentes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="style.css"> 
+    <script src="script.js"></script>
+</head>
+ <style>/* Estilo global */
+    body {
+      background-color: #f0f2f5;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url(./fondo.jpg);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #333;
+    }
+    
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      max-width: 900px;
+      margin: 0 auto;
+      backdrop-filter: blur(10px);
+    }
+    
+    h1 {
+      font-size: 2.2rem;
+      color: #000; /* Cambiar color del título a negro */
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    .form-label i {
+      margin-right: 8px;
+      color: #000; /* Cambiar color de los iconos a negro */
+    }
+    
+    .btn-primary {
+      background-color: #007bff;
+      border: 2px solid #007bff;
+      border-radius: 30px;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+      transform: scale(1.05);
+    }
+    
+    .form-control, .form-select {
+      border-radius: 30px;
+      padding: 12px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      color: #000; /* Cambiar color del texto en los campos a negro */
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    
+    .form-row {
+      margin-bottom: 20px;
+    }
+    
+    .alert {
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .input-group-addon {
+      font-size: 1.2rem;
+    }
+    
+    .card {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-control {
+      font-size: 1rem;
+    }
+    
+    /* Estilo para el campo fecha y hora */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .img-fluid {
+      max-width: 250px;
+      margin-bottom: 30px;
+    }
+    
+    .text-muted {
+      font-size: 0.95rem;
+    }</style>
+<body>
+
+    <div class="container mt-4">
+        <header class="text-center mb-4">
+            <img src="./logo.jpg" alt="Logo" class="img-fluid">
+            <h1><strong>Datos Del Solicitante</strong></h1>
+            <p class="text-muted">Tenga en cuenta que su solicitud será atendida dependiendo de la prioridad.</p>
+        </header>
+
+        <form id="ticketForm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nombreSolicitante" class="form-label"><i class="fa-solid fa-user"></i> Nombre del Solicitante</label>
+                    <input type="text" class="form-control" id="nombreSolicitante" name="nombreSolicitante" placeholder="Ingrese su nombre" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="departamento" class="form-label"><i class="fa-solid fa-building"></i> Departamento</label>
+                    <input type="text" class="form-control" id="departamento" name="departamento" placeholder="Ingrese su departamento" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="correo" class="form-label"><i class="fa-solid fa-envelope"></i> Gmail</label>
+                    <input type="email" class="form-control" id="correo" name="correo" placeholder="gmail@correo.com" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="telefono" class="form-label"><i class="fa-solid fa-phone"></i> Teléfono</label>
+                    <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su teléfono" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="fecha" class="form-label"><i class="fa-solid fa-calendar"></i> Fecha</label>
+                    <input type="date" class="form-control" id="fecha" name="fecha" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="hora" class="form-label"><i class="fa-solid fa-clock"></i> Hora</label>
+                    <input type="time" class="form-control" id="hora" name="hora" required>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="categoria" class="form-label"><i class="fa-solid fa-list"></i> Categoría</label>
+                    <select class="form-select" id="categoria" name="categoria" required>
+                        <option value="hardware">Soporte Equipos</option>
+                        <option value="software">Software</option>
+                        <option value="redes">Redes</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="subcategoria" class="form-label"><i class="fa-solid fa-list-ul"></i> Subcategoría</label>
+                    <select class="form-select" id="subcategoria" name="subcategoria" required>
+                        <option value="computadora">Computadora</option>
+                        <option value="impresora">Impresora</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="responsable" class="form-label"><i class="fa-solid fa-user-check"></i> Responsable</label>
+                    <select class="form-select" id="responsable" name="responsable" required>
+                        <option value="angi">Angi Daniela Agudelo</option>
+                        <option value="julian">Julián Pérez</option>
+                        <option value="luis">Luis García</option>
+                    </select>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <label for="descripcion" class="form-label"><i class="fa-solid fa-comment-dots"></i> Descripción</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Describa el problema..." required></textarea>
+                </div>
+
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary mt-3"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
+</body>
+
+</html>
