@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Tickets - Backend</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert -->
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <img src="/logo3.png" alt="Logo" class="logo">
+      <h1>Gestión de Tickets</h1>
+    </header>
+
+    <form id="gestionForm">
+      <div class="form-group">
+        <label for="ticketID"><i class="fa-solid fa-ticket"></i> ID del Ticket</label>
+        <input type="number" id="ticketID" name="ticketID" required>
+      </div>
+
+      <!-- Nombre del Solicitante -->
+      <div class="form-group">
+        <label for="nombreSolicitante"><i class="fa-solid fa-user"></i> Nombre del Solicitante</label>
+        <input type="text" id="nombreSolicitante" name="nombreSolicitante" readonly>
+      </div>
+
+      <!-- Correo -->
+      <div class="form-group">
+        <label for="correo"><i class="fa-solid fa-envelope"></i> Correo Electrónico</label>
+        <input type="email" id="correo" name="correo" readonly>
+      </div>
+
+      <!-- Teléfono -->
+      <div class="form-group">
+        <label for="telefono"><i class="fa-solid fa-phone"></i> Teléfono</label>
+        <input type="text" id="telefono" name="telefono" readonly>
+      </div>
+
+      <!-- Fecha -->
+      <div class="form-group">
+        <label for="fecha"><i class="fa-solid fa-calendar"></i> Fecha</label>
+        <input type="text" id="fecha" name="fecha" readonly>
+      </div>
+
+      <!-- Departamento -->
+      <div class="form-group">
+        <label for="departamento"><i class="fa-solid fa-building"></i> Departamento</label>
+        <input type="text" id="departamento" name="departamento" readonly>
+      </div>
+
+      <!-- Hora -->
+      <div class="form-group">
+        <label for="hora"><i class="fa-solid fa-clock"></i> Hora</label>
+        <input type="text" id="hora" name="hora" readonly>
+      </div>
+
+      <!-- Categoría -->
+      <div class="form-group">
+        <label for="categoria"><i class="fa-solid fa-list"></i> Categoría</label>
+        <input type="text" id="categoria" name="categoria" readonly>
+      </div>
+
+      <!-- Subcategoría -->
+      <div class="form-group">
+        <label for="subcategoria"><i class="fa-solid fa-list-ul"></i> Subcategoría</label>
+        <input type="text" id="subcategoria" name="subcategoria" readonly>
+      </div>
+
+      <!-- Responsable -->
+      <div class="form-group">
+        <label for="responsable"><i class="fa-solid fa-user-check"></i> Responsable</label>
+        <input type="text" id="responsable" name="responsable" readonly>
+      </div>
+
+      <!-- Estado del Ticket -->
+      <div class="form-group">
+        <label for="estado"><i class="fa-solid fa-clipboard-list"></i> Estado del Ticket</label>
+        <select id="estado" name="estado">
+          <option value="Abierto">Abierto</option>
+          <option value="En Proceso">En Proceso</option>
+          <option value="Cerrado">Cerrado</option>
+        </select>
+      </div>
+
+      <!-- Observaciones -->
+      <div class="form-group">
+        <label for="observaciones"><i class="fa-solid fa-comment-dots"></i> Descripcion</label>
+        <textarea id="observaciones" name="observaciones" rows="3" required></textarea>
+      </div>
+
+      <!-- Botón Guardar -->
+      <div class="form-group">
+        <button type="submit" class="btn">Guardar Cambios</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
