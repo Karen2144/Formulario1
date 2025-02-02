@@ -1,288 +1,331 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gráfica de Tickets</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/icons/favicon.ico">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gráfica de Tickets</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="https://getbootstrap.com/docs/5.3/assets/img/icons/favicon.ico"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
 
-    .container {
-      max-width: 1200px;
-      padding: 50px;
-    }
+      .container {
+        max-width: 1200px;
+        padding: 50px;
+      }
 
-    .card {
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
+      .card {
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
 
-    .card-header {
-      font-size: 2rem;
-      background-color: #0069d9;
-      color: white;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
-    }
+      .card-header {
+        font-size: 2rem;
+        background-color: #0069d9;
+        color: white;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+      }
 
-    .chart-container {
-      position: relative;
-      height: 700px; /* Aumenté la altura para hacer la gráfica más grande */
-      margin-top: 30px;
-    }
+      .chart-container {
+        position: relative;
+        height: 700px; /* Aumenté la altura para hacer la gráfica más grande */
+        margin-top: 30px;
+      }
 
-    .chart-container canvas {
-      border-radius: 10px;
-    }
+      .chart-container canvas {
+        border-radius: 10px;
+      }
 
-    #porcentajeGestion {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 30px;
-    }
+      #porcentajeGestion {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 30px;
+      }
 
-    .stat-card {
-      border-radius: 10px;
-      height: 100%;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px; /* Aumenté el margen entre los cuadros */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 15px;
-      text-align: center;
-    }
+      .stat-card {
+        border-radius: 10px;
+        height: 100%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px; /* Aumenté el margen entre los cuadros */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        text-align: center;
+      }
 
-    .stat-card .card-body {
-      padding: 10px;
-    }
+      .stat-card .card-body {
+        padding: 10px;
+      }
 
-    .display-4 {
-      font-size: 2rem;
-      font-weight: bold;
-    }
+      .display-4 {
+        font-size: 2rem;
+        font-weight: bold;
+      }
 
-    .percentage {
-      font-size: 1rem;
-      font-weight: 500;
-      margin-top: 5px;
-      font-style: italic;
-    }
+      .percentage {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-top: 5px;
+        font-style: italic;
+      }
 
-    .text-success {
-      background-color: #28a745;
-      color: white;
-    }
+      .text-success {
+        background-color: #28a745;
+        color: white;
+      }
 
-    .text-warning {
-      background-color: #ffc107;
-      color: white;
-    }
+      .text-warning {
+        background-color: #ffc107;
+        color: white;
+      }
 
-    .text-danger {
-      background-color: #dc3545;
-      color: white;
-    }
+      .text-danger {
+        background-color: #dc3545;
+        color: white;
+      }
 
-    .stats {
-      background-color: #ffffff;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      margin-bottom: 30px;
-    }
+      .stats {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
 
-    .percentage {
-      font-size: 1.2rem;
-      font-weight: 500;
-      margin-top: 10px;
-    }
+      .percentage {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-top: 10px;
+      }
 
-    .row {
-      justify-content: space-between;
-    }
+      .row {
+        justify-content: space-between;
+      }
 
-    .col-md-4 {
-      padding: 10px; /* Aumenté el padding para dar más espacio */
-    }
+      .col-md-4 {
+        padding: 10px; /* Aumenté el padding para dar más espacio */
+      }
 
-    /* Estilo para hacer negrita los títulos de los tickets */
-    .card-title {
-      font-weight: bold;
-    }
+      /* Estilo para hacer negrita los títulos de los tickets */
+      .card-title {
+        font-weight: bold;
+      }
 
-    /* Separación adicional entre las tarjetas */
-    .row .col-md-12 {
-      margin-bottom: 15px; /* Aumenta el margen entre las tarjetas */
-    }
-  </style>
-</head>
-<body>
-  <h1>jdjsnjidsn</h1>
-  <div class="container">
-    <!-- Row with Chart and Stats Side by Side -->
-    <div class="row">
-      <!-- Estadísticas de Tickets -->
-      <div class="col-md-4">
-        <div class="stats">
-          <div class="row text-center">
-            <div class="col-md-12">
-              <div class="card stat-card bg-success text-white">
-                <div class="card-body">
-                  <h4 class="card-title">Cerrados</h4>
-                  <p id="cerradosCount" class="display-4"><strong>0</strong></p>
-                  <p id="cerradosPercentage" class="percentage"><strong>0%</strong></p>
+      /* Separación adicional entre las tarjetas */
+      .row .col-md-12 {
+        margin-bottom: 15px; /* Aumenta el margen entre las tarjetas */
+      }
+    </style>
+  </head>
+  <body>
+    s
+    <div class="container">
+      <!-- Row with Chart and Stats Side by Side -->
+      <div class="row">
+        <!-- Estadísticas de Tickets -->
+        <div class="col-md-4">
+          <div class="stats">
+            <div class="row text-center">
+              <div class="col-md-12">
+                <div class="card stat-card bg-success text-white">
+                  <div class="card-body">
+                    <h4 class="card-title">Cerrados</h4>
+                    <p id="cerradosCount" class="display-4">
+                      <strong>0</strong>
+                    </p>
+                    <p id="cerradosPercentage" class="percentage">
+                      <strong>0%</strong>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-12">
-              <div class="card stat-card bg-warning text-white">
-                <div class="card-body">
-                  <h4 class="card-title">En Proceso</h4>
-                  <p id="enProcesoCount" class="display-4"><strong>0</strong></p>
-                  <p id="enProcesoPercentage" class="percentage"><strong>0%</strong></p>
+              <div class="col-md-12">
+                <div class="card stat-card bg-warning text-white">
+                  <div class="card-body">
+                    <h4 class="card-title">En Proceso</h4>
+                    <p id="enProcesoCount" class="display-4">
+                      <strong>0</strong>
+                    </p>
+                    <p id="enProcesoPercentage" class="percentage">
+                      <strong>0%</strong>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-12">
-              <div class="card stat-card bg-danger text-white">
-                <div class="card-body">
-                  <h4 class="card-title">Abiertos</h4>
-                  <p id="abiertosCount" class="display-4"><strong>0</strong></p>
-                  <p id="abiertosPercentage" class="percentage"><strong>0%</strong></p>
+              <div class="col-md-12">
+                <div class="card stat-card bg-danger text-white">
+                  <div class="card-body">
+                    <h4 class="card-title">Abiertos</h4>
+                    <p id="abiertosCount" class="display-4">
+                      <strong>0</strong>
+                    </p>
+                    <p id="abiertosPercentage" class="percentage">
+                      <strong>0%</strong>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Card for Chart -->
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header text-center">
-            <h3>Resumen de Tickets</h3>
-          </div>
-          <!-- Porcentaje de Gestión -->
-          <div class="text-center mb-4">
-            <p id="porcentajeGestion" class="h4"><strong>Porcentaje de Gestión: 0%</strong></p>
-          </div>
-          <div class="card-body">
-            <div class="chart-container">
-              <canvas id="ticketsChart"></canvas>
+        <!-- Card for Chart -->
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header text-center">
+              <h3>Resumen de Tickets</h3>
+            </div>
+            <!-- Porcentaje de Gestión -->
+            <div class="text-center mb-4">
+              <p id="porcentajeGestion" class="h4">
+                <strong>Porcentaje de Gestión: 0%</strong>
+              </p>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="ticketsChart"></canvas>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
-  <script>
-    // Simulación de los datos de los tickets (puedes cambiar estos datos dinámicamente)
-    let ticketsData = {
-      cerrados: 50,
-      enProceso: 30,
-      abiertos: 20
-    };
+    <script>
+      // Simulación de los datos de los tickets (puedes cambiar estos datos dinámicamente)
+      let ticketsData = {
+        cerrados: 50,
+        enProceso: 30,
+        abiertos: 20,
+      };
 
-    // Función para actualizar los datos del gráfico y las estadísticas
-    function actualizarDatos() {
-      const totalTickets = ticketsData.cerrados + ticketsData.enProceso + ticketsData.abiertos;
-      const gestionPercentage = (ticketsData.cerrados + ticketsData.enProceso) / totalTickets * 100;
+      // Función para actualizar los datos del gráfico y las estadísticas
+      function actualizarDatos() {
+        const totalTickets =
+          ticketsData.cerrados + ticketsData.enProceso + ticketsData.abiertos;
+        const gestionPercentage =
+          ((ticketsData.cerrados + ticketsData.enProceso) / totalTickets) * 100;
 
-      const cerradosPercentage = (ticketsData.cerrados / totalTickets) * 100;
-      const enProcesoPercentage = (ticketsData.enProceso / totalTickets) * 100;
-      const abiertosPercentage = (ticketsData.abiertos / totalTickets) * 100;
+        const cerradosPercentage = (ticketsData.cerrados / totalTickets) * 100;
+        const enProcesoPercentage =
+          (ticketsData.enProceso / totalTickets) * 100;
+        const abiertosPercentage = (ticketsData.abiertos / totalTickets) * 100;
 
-      document.getElementById("cerradosCount").textContent = ticketsData.cerrados;
-      document.getElementById("enProcesoCount").textContent = ticketsData.enProceso;
-      document.getElementById("abiertosCount").textContent = ticketsData.abiertos;
-      document.getElementById("cerradosPercentage").textContent = `${cerradosPercentage.toFixed(2)}%`;
-document.getElementById("enProcesoPercentage").textContent = `${enProcesoPercentage.toFixed(2)}%`;
-document.getElementById("abiertosPercentage").textContent = `${abiertosPercentage.toFixed(2)}%`;
+        document.getElementById("cerradosCount").textContent =
+          ticketsData.cerrados;
+        document.getElementById("enProcesoCount").textContent =
+          ticketsData.enProceso;
+        document.getElementById("abiertosCount").textContent =
+          ticketsData.abiertos;
+        document.getElementById(
+          "cerradosPercentage"
+        ).textContent = `${cerradosPercentage.toFixed(2)}%`;
+        document.getElementById(
+          "enProcesoPercentage"
+        ).textContent = `${enProcesoPercentage.toFixed(2)}%`;
+        document.getElementById(
+          "abiertosPercentage"
+        ).textContent = `${abiertosPercentage.toFixed(2)}%`;
 
-document.getElementById("porcentajeGestion").textContent = `Porcentaje de Gestión: ${gestionPercentage.toFixed(2)}%`;
+        document.getElementById(
+          "porcentajeGestion"
+        ).textContent = `Porcentaje de Gestión: ${gestionPercentage.toFixed(
+          2
+        )}%`;
 
-
-      ticketsChart.data.datasets[0].data = [ticketsData.cerrados, ticketsData.enProceso, ticketsData.abiertos];
-      ticketsChart.update();
-    }
-
-    const ctx = document.getElementById('ticketsChart').getContext('2d');
-    const ticketsChart = new Chart(ctx, {
-      type: 'polarArea',
-      data: {
-        labels: ['Cerrados', 'En Proceso', 'Abiertos'],
-        datasets: [{
-          label: 'Tickets',
-          data: [ticketsData.cerrados, ticketsData.enProceso, ticketsData.abiertos],
-          backgroundColor: ['#28a745', '#ffc107', '#dc3545'],
-          borderColor: ['#000000', '#000000', '#000000'], // Líneas más negras
-          borderWidth: 2 // Aumenté el grosor de las líneas
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          r: {
-            pointLabels: {
-              display: true,
-              font: {
-                size: 18
-              }
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          title: {
-            display: true,
-            text: 'Distribución de Tickets'
-          },
-          datalabels: {
-            formatter: (value, context) => {
-              let total = 0;
-              context.chart.data.datasets[0].data.forEach(data => {
-                total += data;
-              });
-              let percentage = ((value / total) * 100).toFixed(2);
-              return { value, percentage };
-
-            },
-            color: '#fff',
-            font: {
-              weight: 'bold',
-              size: 22 // Tamaño más grande para los números
-            }
-          }
-        }
+        ticketsChart.data.datasets[0].data = [
+          ticketsData.cerrados,
+          ticketsData.enProceso,
+          ticketsData.abiertos,
+        ];
+        ticketsChart.update();
       }
-    });
 
-    setInterval(() => {
-      ticketsData.cerrados = Math.floor(Math.random() * 100);
-      ticketsData.enProceso = Math.floor(Math.random() * 50);
-      ticketsData.abiertos = Math.floor(Math.random() * 30);
+      const ctx = document.getElementById("ticketsChart").getContext("2d");
+      const ticketsChart = new Chart(ctx, {
+        type: "polarArea",
+        data: {
+          labels: ["Cerrados", "En Proceso", "Abiertos"],
+          datasets: [
+            {
+              label: "Tickets",
+              data: [
+                ticketsData.cerrados,
+                ticketsData.enProceso,
+                ticketsData.abiertos,
+              ],
+              backgroundColor: ["#28a745", "#ffc107", "#dc3545"],
+              borderColor: ["#000000", "#000000", "#000000"], // Líneas más negras
+              borderWidth: 2, // Aumenté el grosor de las líneas
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            r: {
+              pointLabels: {
+                display: true,
+                font: {
+                  size: 18,
+                },
+              },
+            },
+          },
+          plugins: {
+            legend: {
+              position: "top",
+            },
+            title: {
+              display: true,
+              text: "Distribución de Tickets",
+            },
+            datalabels: {
+              formatter: (value, context) => {
+                let total = 0;
+                context.chart.data.datasets[0].data.forEach((data) => {
+                  total += data;
+                });
+                let percentage = ((value / total) * 100).toFixed(2);
+                return { value, percentage };
+              },
+              color: "#fff",
+              font: {
+                weight: "bold",
+                size: 22, // Tamaño más grande para los números
+              },
+            },
+          },
+        },
+      });
+
+      setInterval(() => {
+        ticketsData.cerrados = Math.floor(Math.random() * 100);
+        ticketsData.enProceso = Math.floor(Math.random() * 50);
+        ticketsData.abiertos = Math.floor(Math.random() * 30);
+        actualizarDatos();
+      }, 3000);
+
       actualizarDatos();
-    }, 3000);
-
-    actualizarDatos();
-  </script>
-
-</body>
+    </script>
+  </body>
 </html>
